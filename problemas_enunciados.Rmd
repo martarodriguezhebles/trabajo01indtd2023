@@ -17,6 +17,21 @@ source("teoriadecision_funciones_incertidumbre.R") # Lectura de las funciones
 ```
 
 \newpage
+# Tabla de decisión con valores inventados.
+```{r echo=FALSE}
+set.seed(123) 
+n=50
+datos=runif(n) # Creación de datos aleatorios
+tabla=crea.tablaX(datos,7,4) 
+```
+
+```{r echo=FALSE}
+kable(tabla, booktabs = TRUE, caption = "Tabla de decisión",align = "c",linesep = " ") %>%
+  kable_styling(latex_options = c("hold_position"),
+                bootstrap_options = "striped", full_width = F) 
+````
+
+\newpage
 # Selección empresa proveedora
 
 **Una empresa de venta de electrodomésticos desea contartar un proveedor para el próximo año, de manera que le salga lo más rentable posible. todos los proveedores tienes un precio fijo inicial para un pedido de 1000 unidades, dependiendo de la marca, y dicho precio aumenta por cada 100 unidades extra que la empresa solicite fuera de plazo.**
