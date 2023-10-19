@@ -1,0 +1,55 @@
+---
+  title: "Métodos de incertidumbre"
+author: "Marta Rodriguez Hebles"
+date: "13 de octubre de 2023"
+lang: es
+output:
+  pdf_document:
+  toc: yes
+number_sections: yes
+---
+
+```{r setup, include=FALSE}
+library(kableExtra)
+library(tidyverse)
+source("teoriadecision_funciones_incertidumbre.R") # Lectura de las funciones 
+# creadas por "calote" en GitHub.
+```
+
+\newpage
+# Selección empresa proveedora
+
+**Una empresa de venta de electrodomésticos desea contartar un proveedor para el próximo año, de manera que le salga lo más rentable posible. todos los proveedores tienes un precio fijo inicial para un pedido de 1000 unidades, dependiendo de la marca, y dicho precio aumenta por cada 100 unidades extra que la empresa solicite fuera de plazo.**
+
+  **Tiene tres opciones, el proveedor A le cobra 500 u.m.por el primer pedido, el B 450 u.m. y el C 700 u.m.. Si añade 100 unidades mas, el proveedor A le cobrara 200 u.m. de suplemento, el B 250 u.m. y el C 100 u.m.. Mientras que si añade otras 100 unidades mas el proveedor A le sumará 150 u.m, el B 200 u.m. y el C nada. ¿Cuál es la opción más rentable si espera muchas ventas este año? ¿Y si tiene una previsión negativa?**
+  
+```{r}
+crea.tablaX = function(vector_matporfilas,numalternativas=3,numestados=3) {
+  
+  X = matrix(vector_matporfilas,nrow=numalternativas,ncol=numestados,byrow=TRUE)
+  colnames(X) = paste('e',1:numestados,sep='');
+  rownames(X) = paste('d',1:numalternativas,sep='');
+  return(X);
+  
+}
+tabla=crea.tablaX(c(500,700,850,
+                    450,700,900,
+                    700,800,800))
+colnames(tabla)=c("P inicial","+100 udades.","+100 udades.")
+rownames(tabla)=c("A","B","C")
+tabla
+
+```
+
+```{r comment=NA}
+Sol=criterio.Todos(tabla,0.5,F)
+```
+
+```{r echo=FALSE}
+kable(Sol, booktabs = TRUE,align = "c",linesep = " ") %>%
+  kable_styling(latex_options = c("hold_position"),
+                bootstrap_options = "striped", full_width = T) 
+```
+
+En el primer caso, debe escoger el proveedor B puesto que estamos en el caso de pensamiento optimista,
+mientras que en el segundo caso se quedaría con el C, correspondiente al pensamiento pesimista(Wald)
