@@ -17,6 +17,170 @@ source("teoriadecision_funciones_incertidumbre.R") # Lectura de las funciones
 ```
 
 \newpage
+# Tabla de decisión con valores inventados.
+```{r echo=FALSE}
+set.seed(123) 
+n=50
+datos=runif(n) # Creación de datos aleatorios
+tabla=crea.tablaX(datos,7,4) 
+```
+
+```{r echo=FALSE}
+kable(tabla, booktabs = TRUE, caption = "Tabla de decisión",align = "c",linesep = " ") %>%
+  kable_styling(latex_options = c("hold_position"),
+                bootstrap_options = "striped", full_width = F) 
+```
+
+## Wald
+
+### Favorable
+
+```{r comment=NA}
+WaldF=criterio.Wald(tabla,T)
+WaldF
+```
+```{r echo=FALSE, comment=NA}
+cat("La alternativa óptima por el criterio ",WaldF$criterio, " en el caso de ", 
+    ifelse(WaldF$metodo=="favorable","beneficios","costes"),
+    "\n", "es la ",names(WaldF$AlternativaOptima),
+    " con un valor óptimo de ", WaldF$ValorOptimo, sep = "" )
+```
+### Desfavorable
+
+```{r comment=NA}
+WaldD=criterio.Wald(tabla,F)
+WaldD
+cat("La alternativa óptima por el criterio ",WaldD$criterio, " en el caso de ", 
+    ifelse(WaldD$metodo=="favorable","beneficios","costes"),
+    "\n", "es la ",names(WaldD$AlternativaOptima),
+    " con un valor óptimo de ", WaldD$ValorOptimo, sep = "" )
+```
+```{r echo=FALSE, comment=NA}
+```
+
+## Optimista
+
+### Favorable
+
+```{r comment=NA}
+OptimistaF=criterio.Optimista(tabla,T)
+OptimistaF
+```
+```{r echo=FALSE, comment=NA}
+cat("La alternativa óptima por el criterio ",OptimistaF$criterio, " en el caso de ", 
+    ifelse(OptimistaF$metodo=="favorable","beneficios","costes"),
+    "\n", "es la ",names(OptimistaF$AlternativaOptima),
+    " con un valor óptimo de ", OptimistaF$ValorOptimo, sep = "" )
+```
+### Desfavorable
+
+```{r comment=NA}
+OptimistaD=criterio.Optimista(tabla,F)
+OptimistaD
+```
+```{r echo=FALSE, comment=NA}
+cat("La alternativa óptima por el criterio ",OptimistaD$criterio, " en el caso de ", 
+    ifelse(OptimistaD$metodo=="favorable","beneficios","costes"),
+    "\n", "es la ",names(OptimistaD$AlternativaOptima),
+    " con un valor óptimo de ", OptimistaD$ValorOptimo, sep = "" )
+```
+
+## Hurwicz
+### Favorable
+```{r comment=NA}
+HurwiczF=criterio.Hurwicz(tabla,T)
+HurwiczF
+```
+```{r echo=FALSE, comment=NA}
+cat("La alternativa óptima por el criterio ",HurwiczF$criterio, " en el caso de ", 
+    ifelse(HurwiczF$metodo=="favorable","beneficios","costes"),
+    "\n", "es la ",names(HurwiczF$AlternativaOptima),
+    " con un valor óptimo de ", HurwiczF$ValorOptimo, sep = "" )
+```
+### Desfavorable
+```{r comment=NA}
+HurwiczD=criterio.Hurwicz(tabla,F)
+HurwiczD
+```
+```{r echo=FALSE, comment=NA}
+cat("La alternativa óptima por el criterio ",HurwiczD$criterio, " en el caso de ", 
+    ifelse(HurwiczD$metodo=="favorable","beneficios","costes"),
+    "\n", "es la ",names(HurwiczD$AlternativaOptima),
+    " con un valor óptimo de ", HurwiczD$ValorOptimo, sep = "" )
+```
+## Savage
+### Favorable
+```{r comment=NA}
+SavageF=criterio.Savage(tabla,T)
+SavageF
+```
+```{r echo=FALSE, comment=NA}
+cat("La alternativa óptima por el criterio ",SavageF$criterio, " en el caso de ", 
+    ifelse(SavageF$metodo=="favorable","beneficios","costes"),
+    "\n", "es la ",names(SavageF$AlternativaOptima),
+    " con un valor óptimo de ", SavageF$ValorOptimo, sep = "" )
+```
+### Desfavorable
+```{r comment=NA}
+SavageD=criterio.Savage(tabla,F)
+SavageD
+```
+```{r echo=FALSE, comment=NA}
+cat("La alternativa óptima por el criterio ",SavageD$criterio, " en el caso de ", 
+    ifelse(SavageD$metodo=="favorable","beneficios","costes"),
+    "\n", "es la ",names(SavageD$AlternativaOptima),
+    " con un valor óptimo de ", SavageD$ValorOptimo, sep = "" )
+```
+## La Place
+### Favorable
+```{r comment=NA}
+LaPlaceF=criterio.Laplace(tabla,T)
+LaPlaceF
+```
+```{r echo=FALSE, comment=NA}
+cat("La alternativa óptima por el criterio ",LaPlaceF$criterio, " en el caso de ", 
+    ifelse(LaPlaceF$metodo=="favorable","beneficios","costes"),
+    "\n", "es la ",names(LaPlaceF$AlternativaOptima),
+    " con un valor óptimo de ", LaPlaceF$ValorOptimo, sep = "" )
+```
+### Desfavorable
+```{r comment=NA}
+LaPlaceD=criterio.Laplace(tabla,F)
+LaPlaceD
+```
+```{r echo=FALSE, comment=NA}
+cat("La alternativa óptima por el criterio ",LaPlaceD$criterio, " en el caso de ", 
+    ifelse(LaPlaceD$metodo=="favorable","beneficios","costes"),
+    "\n", "es la ",names(LaPlaceD$AlternativaOptima),
+    " con un valor óptimo de ", LaPlaceD$ValorOptimo, sep = "" )
+```
+
+## Punto ideal
+### Favorable
+```{r comment=NA}
+PuntoIdealF=criterio.PuntoIdeal(tabla,T)
+PuntoIdealF
+```
+```{r echo=FALSE, comment=NA}
+cat("La alternativa óptima por el criterio ",PuntoIdealF$criterio, " en el caso de ", 
+    ifelse(PuntoIdealF$metodo=="favorable","beneficios","costes"),
+    "\n", "es la ",names(PuntoIdealF$AlternativaOptima),
+    " con un valor óptimo de ", PuntoIdealF$ValorOptimo, sep = "" )
+```
+### Desfavorable
+```{r comment=NA}
+PuntoIdealD=criterio.PuntoIdeal(tabla,F)
+PuntoIdealD
+```
+```{r echo=FALSE, comment=NA}
+cat("La alternativa óptima por el criterio ",PuntoIdealD$criterio, " en el caso de ", 
+    ifelse(PuntoIdealD$metodo=="favorable","beneficios","costes"),
+    "\n", "es la ",names(PuntoIdealD$AlternativaOptima),
+    " con un valor óptimo de ", PuntoIdealD$ValorOptimo, sep = "" )
+````
+
+
+\newpage
 # Selección empresa proveedora
 
 **Una empresa de venta de electrodomésticos desea contartar un proveedor para el próximo año, de manera que le salga lo más rentable posible. todos los proveedores tienes un precio fijo inicial para un pedido de 1000 unidades, dependiendo de la marca, y dicho precio aumenta por cada 100 unidades extra que la empresa solicite fuera de plazo.**
